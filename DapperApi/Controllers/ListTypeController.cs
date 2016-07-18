@@ -11,9 +11,11 @@ using DapperApi.Models;
 namespace DapperApi.Controllers
 {
     [AllowAnonymous, EnableCors(origins: "http://localhost:9000", headers: "*", methods: "*")]
+    [RoutePrefix("api/ListType")]
     public class ListTypeController : ApiController
     {
         // GET: api/ListType
+        [Route("Get")]
         public IEnumerable<ListType> Get()
         {
             IListTypeRepository lrep = new SqLiteListTypeRepository();
@@ -23,6 +25,7 @@ namespace DapperApi.Controllers
         }
 
         // GET: api/ListType/5
+        [Route("GetById/{Id}")]
         public IEnumerable<dynamic> Get(int id)
         {
             IListTypeRepository lrep = new SqLiteListTypeRepository();
@@ -31,6 +34,15 @@ namespace DapperApi.Controllers
             var columnList = currentList.Description;
             IEnumerable<dynamic> retrievedType = lrep.GetCurrentList(tableName, columnList);
             return retrievedType;
+            //            return "value";
+        }
+
+        [Route("GetGenericList/{Id}")]
+        public IEnumerable<dynamic> GetGenericList(int id)
+        {
+            IListTypeRepository lrep = new SqLiteListTypeRepository();
+            GenericList[] currentList = lrep.GetGenericList(id);
+            return currentList;
             //            return "value";
         }
 

@@ -50,5 +50,17 @@ namespace DapperApi.Data
                 return result;
             }
         }
+
+        public GenericList[] GetGenericList(int id)
+        {
+            if (!File.Exists(DbFile)) return null;
+
+            using (var cnn = SimpleDbConnection())
+            {
+                cnn.Open();
+                return cnn.Query<GenericList>(@"SELECT * FROM BasicLists WHERE ListTypeId = @ListTypeId;", new {ListTypeId = id }).ToArray();
+//                return result;
+            }
+        }
     }
 }
