@@ -7,11 +7,11 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using DapperApi.Data;
 using DapperApi.Models;
+using Microsoft.Owin.Security.Google;
 
 namespace DapperApi.Controllers
 {
-    [AllowAnonymous, EnableCors(origins: "http://localhost:9000", headers: "*", methods: "*")]
-    [RoutePrefix("api/ListType")]
+    [AllowAnonymous, EnableCors(origins: "http://localhost:9000", headers: "*", methods: "*"), RoutePrefix("api/ListType")]
     public class ListTypeController : ApiController
     {
         // GET: api/ListType
@@ -28,6 +28,10 @@ namespace DapperApi.Controllers
         [Route("GetById/{Id}")]
         public IEnumerable<dynamic> Get(int id)
         {
+            if (id == 1 || id == 3)
+            {
+                var otherCall = GetGenericList(id);
+            }
             IListTypeRepository lrep = new SqLiteListTypeRepository();
             ListType currentList = lrep.GetById(id);
             var tableName = currentList.Name;
@@ -38,12 +42,10 @@ namespace DapperApi.Controllers
         }
 
         [Route("GetGenericList/{Id}")]
-        public IEnumerable<dynamic> GetGenericList(int id)
+        public IEnumerable<GenericList> GetGenericList(int id)
         {
             IListTypeRepository lrep = new SqLiteListTypeRepository();
-            GenericList[] currentList = lrep.GetGenericList(id);
-            return currentList;
-            //            return "value";
+            return lrep.GetGenericList(id);
         }
 
         // POST: api/ListType

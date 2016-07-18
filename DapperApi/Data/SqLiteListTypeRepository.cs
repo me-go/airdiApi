@@ -51,14 +51,14 @@ namespace DapperApi.Data
             }
         }
 
-        public GenericList[] GetGenericList(int id)
+        public IEnumerable<GenericList> GetGenericList(int id)
         {
             if (!File.Exists(DbFile)) return null;
 
             using (var cnn = SimpleDbConnection())
             {
                 cnn.Open();
-                return cnn.Query<GenericList>(@"SELECT * FROM BasicLists WHERE ListTypeId = @ListTypeId;", new {ListTypeId = id }).ToArray();
+                return cnn.Query<GenericList>(@"SELECT * FROM BasicLists WHERE ListTypeId = @ListTypeId;", new {ListTypeId = id });
 //                return result;
             }
         }

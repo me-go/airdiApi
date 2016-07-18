@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Razor;
 using DapperApi.Models;
 
 namespace DapperApi.Data
@@ -13,6 +14,6 @@ namespace DapperApi.Data
         ListType GetById(int id);
         void SaveNewListType(ListType listType);
         IEnumerable<dynamic> GetCurrentList(string tableName, string columnList);
-        GenericList[] GetGenericList(int id);
+        IEnumerable<GenericList> GetGenericList(int id);
     }
 }
