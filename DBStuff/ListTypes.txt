@@ -1,0 +1,10 @@
+Caliber
+Manufacturer
+Finish Type??
+Condition
+Country
+	State
+		City
+			
+Action Type
+Firearm Type
