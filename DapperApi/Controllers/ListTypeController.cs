@@ -48,6 +48,20 @@ namespace DapperApi.Controllers
             return lrep.GetGenericList(id);
         }
 
+        [Route("GetActionTypeList")]
+        public IEnumerable<ActionTypeList> GetActionTypeList()
+        {
+            IListTypeRepository lrep = new SqLiteListTypeRepository();
+            return lrep.GetActionTypeList();
+        }
+
+        [Route("GetCaliberList")]
+        public IEnumerable<CaliberList> GetCaliberList()
+        {
+            IListTypeRepository lrep = new SqLiteListTypeRepository();
+            return lrep.GetCaliberList();
+        }
+
         // POST: api/ListType
         public void Post([FromBody]string value)
         {

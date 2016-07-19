@@ -15,5 +15,7 @@ namespace DapperApi.Data
         void SaveNewListType(ListType listType);
         IEnumerable<dynamic> GetCurrentList(string tableName, string columnList);
         IEnumerable<GenericList> GetGenericList(int id);
+        IEnumerable<ActionTypeList> GetActionTypeList();
+        IEnumerable<CaliberList> GetCaliberList();
     }
 }

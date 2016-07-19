@@ -8,7 +8,7 @@ using DapperApi.Models;
 
 namespace DapperApi.Data
 {
-    public class SqLiteListTypeRepository:SqLiteBaseRepository, IListTypeRepository
+    public class SqLiteListTypeRepository : SqLiteBaseRepository, IListTypeRepository
     {
         public IEnumerable<ListType> GetAll()
         {
@@ -17,7 +17,7 @@ namespace DapperApi.Data
             using (var cnn = SimpleDbConnection())
             {
                 cnn.Open();
-               IEnumerable<ListType> result = cnn.Query<ListType>(@"select Id, Name, Description from listTypes;");
+                IEnumerable<ListType> result = cnn.Query<ListType>(@"select Id, Name, Description from listTypes;");
                 return result;
             }
         }
@@ -29,7 +29,7 @@ namespace DapperApi.Data
             using (var cnn = SimpleDbConnection())
             {
                 cnn.Open();
-               ListType result = cnn.Query<ListType>(@"select Id, Name, Description from listTypes WHERE Id = @id;", new { id }).First();
+                ListType result = cnn.Query<ListType>(@"select Id, Name, Description from listTypes WHERE Id = @id;", new { id }).First();
                 return result;
             }
         }
@@ -58,8 +58,32 @@ namespace DapperApi.Data
             using (var cnn = SimpleDbConnection())
             {
                 cnn.Open();
-                return cnn.Query<GenericList>(@"SELECT * FROM BasicLists WHERE ListTypeId = @ListTypeId;", new {ListTypeId = id });
-//                return result;
+                return cnn.Query<GenericList>(@"SELECT * FROM BasicLists WHERE ListTypeId = @ListTypeId;", new { ListTypeId = id });
+                //                return result;
+            }
+        }
+
+        public IEnumerable<ActionTypeList> GetActionTypeList()
+        {
+            if (!File.Exists(DbFile)) return null;
+
+            using (var cnn = SimpleDbConnection())
+            {
+                cnn.Open();
+                return cnn.Query<ActionTypeList>(@"SELECT Id, ListTypeId, Name, Description FROM ActionType;");
+                //                return result;
+            }
+        }
+
+        public IEnumerable<CaliberList> GetCaliberList()
+        {
+            if (!File.Exists(DbFile)) return null;
+
+            using (var cnn = SimpleDbConnection())
+            {
+                cnn.Open();
+                return cnn.Query<CaliberList>(@"SELECT Id, ListTypeId, CaliberInches, CaliberMetricDiameter, CaliberMetricLength FROM Caliber;");
+                //                return result;
             }
         }
     }
