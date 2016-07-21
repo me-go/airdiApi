@@ -62,6 +62,13 @@ namespace DapperApi.Controllers
             return lrep.GetCaliberList();
         }
 
+        [Route("GetFirearmTypeList")]
+        public IEnumerable<FirearmTypeList> GetFirearmTypeList()
+        {
+            IListTypeRepository lrep = new SqLiteListTypeRepository();
+            return lrep.GetFirearmTypeList();
+        }
+
         // POST: api/ListType
         public void Post([FromBody]string value)
         {

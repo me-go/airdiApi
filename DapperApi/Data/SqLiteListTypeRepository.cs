@@ -86,5 +86,17 @@ namespace DapperApi.Data
                 //                return result;
             }
         }
+
+        public IEnumerable<FirearmTypeList> GetFirearmTypeList()
+        {
+            if (!File.Exists(DbFile)) return null;
+
+            using (var cnn = SimpleDbConnection())
+            {
+                cnn.Open();
+                return cnn.Query<FirearmTypeList>(@"SELECT Id, ListTypeId, Name, Description FROM FirearmType;");
+                //                return result;
+            }
+        }
     }
 }

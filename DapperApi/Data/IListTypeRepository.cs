@@ -17,5 +17,6 @@ namespace DapperApi.Data
         IEnumerable<GenericList> GetGenericList(int id);
         IEnumerable<ActionTypeList> GetActionTypeList();
         IEnumerable<CaliberList> GetCaliberList();
+        IEnumerable<FirearmTypeList> GetFirearmTypeList();
     }
 }
