@@ -70,8 +70,9 @@ namespace DapperApi.Controllers
         }
 
         // POST: api/ListType
-        public void Post([FromBody]string value)
+        public void Post([FromBody]ActionTypeList value)
         {
+            var myList = value;
         }
 
         // PUT: api/ListType/5
