@@ -70,15 +70,18 @@ namespace DapperApi.Controllers
         }
 
         // POST: api/ListType
-        public int[] Post([FromBody]IEnumerable<ActionTypeList> value)
+        public IEnumerable<ActionTypeList> Post([FromBody]IEnumerable<ActionTypeList> value)
         {
-            var allIds= new int[2];
+            IListTypeRepository lrep = new SqLiteListTypeRepository();
+            lrep.DeleteTable("ActionType");
+            var allIds= new int[value.Count()];
             var actionTypeLists = value as ActionTypeList[] ?? value.ToArray();
             for (int i = 0; i < actionTypeLists.Count(); i++)
             {
+                lrep.UpSertActionTypeList(actionTypeLists[i].Name, actionTypeLists[i].Description);
                 allIds[i] = actionTypeLists[i].Id;
             }
-            return allIds;
+            return lrep.GetActionTypeList();
         }
 
         // PUT: api/ListType/5

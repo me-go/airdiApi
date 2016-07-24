@@ -98,5 +98,27 @@ namespace DapperApi.Data
                 //                return result;
             }
         }
+        public IEnumerable<dynamic> UpSertActionTypeList(string name, string description)
+        {
+            if (!File.Exists(DbFile)) return null;
+
+            using (var cnn = SimpleDbConnection())
+            {
+                cnn.Open();
+                return cnn.Query<dynamic>(@"INSERT OR REPLACE INTO ActionType(ListTypeId, Name, Description) VALUES ((SELECT Id FROM ListTypes WHERE Name = 'ActionType'),' " + name + " ',' " + description + "');");
+            }
+        }
+        public string DeleteTable(string tableName)
+        {
+            if (!File.Exists(DbFile)) return null;
+
+            using (var cnn = SimpleDbConnection())
+            {
+                cnn.Open();
+                cnn.Query<dynamic>(@"DELETE FROM " + tableName + ";");
+                cnn.Query<dynamic>(@"DELETE FROM sqlite_sequence WHERE name = '" + tableName + "';");
+            }
+            return "Success";
+        }
     }
 }

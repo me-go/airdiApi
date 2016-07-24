@@ -18,5 +18,7 @@ namespace DapperApi.Data
         IEnumerable<ActionTypeList> GetActionTypeList();
         IEnumerable<CaliberList> GetCaliberList();
         IEnumerable<FirearmTypeList> GetFirearmTypeList();
+        IEnumerable<dynamic> UpSertActionTypeList(string name, string description);
+        string DeleteTable(string tableName);
     }
 }
