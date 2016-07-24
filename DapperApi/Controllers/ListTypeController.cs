@@ -70,9 +70,15 @@ namespace DapperApi.Controllers
         }
 
         // POST: api/ListType
-        public void Post([FromBody]ActionTypeList value)
+        public int[] Post([FromBody]IEnumerable<ActionTypeList> value)
         {
-            var myList = value;
+            var allIds= new int[2];
+            var actionTypeLists = value as ActionTypeList[] ?? value.ToArray();
+            for (int i = 0; i < actionTypeLists.Count(); i++)
+            {
+                allIds[i] = actionTypeLists[i].Id;
+            }
+            return allIds;
         }
 
         // PUT: api/ListType/5
