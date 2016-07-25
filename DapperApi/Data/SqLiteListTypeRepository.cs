@@ -98,14 +98,21 @@ namespace DapperApi.Data
                 //                return result;
             }
         }
-        public IEnumerable<dynamic> UpSertActionTypeList(string name, string description)
+        public IEnumerable<dynamic> UpSertActionTypeList(int id, string name, string description)
         {
             if (!File.Exists(DbFile)) return null;
 
             using (var cnn = SimpleDbConnection())
             {
                 cnn.Open();
-                return cnn.Query<dynamic>(@"INSERT OR REPLACE INTO ActionType(ListTypeId, Name, Description) VALUES ((SELECT Id FROM ListTypes WHERE Name = 'ActionType'),' " + name + " ',' " + description + "');");
+                if (id == -1)
+                {
+                    return cnn.Query<dynamic>(@"INSERT OR REPLACE INTO ActionType(ListTypeId, Name, Description) VALUES ((SELECT Id FROM ListTypes WHERE Name = 'ActionType'),'" + name + "','" + description + "');");
+                }
+                else
+                {
+                    return cnn.Query<dynamic>(@"INSERT OR REPLACE INTO ActionType(Id, ListTypeId, Name, Description) VALUES ("+id+",(SELECT Id FROM ListTypes WHERE Name = 'ActionType'),'" + name + "','" + description + "');");
+                }
             }
         }
         public string DeleteTable(string tableName)
